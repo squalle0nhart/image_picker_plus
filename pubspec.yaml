@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   photo_manager: ^2.6.0
-  shimmer: ^2.0.0
+  shimmer: ^3.0.0
   image_crop: ^0.4.1
   camera: ^0.10.5
   image: ^4.0.17
