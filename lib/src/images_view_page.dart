@@ -336,7 +336,7 @@ class _ImagesViewPageState extends State<ImagesViewPage>
 
   IconButton existButton() {
     return IconButton(
-      icon: Icon(Icons.clear_rounded, color: widget.blackColor, size: 30),
+      icon: const Icon(Icons.clear_rounded, color: Colors.white, size: 30),
       onPressed: () {
         Navigator.of(context).maybePop(null);
       },
