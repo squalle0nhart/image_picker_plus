@@ -247,20 +247,22 @@ class _ImagesViewPageState extends State<ImagesViewPage> with AutomaticKeepAlive
   }
 
   Widget loadingWidget() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          normalAppBar(),
-          const Expanded(
-              child: Center(
-                child: SizedBox(
-                  width: 40,
-                  height: 40,
-                  child: CupertinoActivityIndicator(),
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        normalAppBar(),
+        const Expanded(
+            child: Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: 40,
+                height: 40,
+                child: CupertinoActivityIndicator(
+                  color: Colors.grey,
                 ),
-              )),
-        ],
-      ),
+              ),
+            )),
+      ],
     );
   }
 
