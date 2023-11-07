@@ -362,10 +362,8 @@ class CustomImagePickerState extends State<CustomImagePicker>
         child: Center(
           child: Text(
             tapsNames.galleryText,
-            style: TextStyle(
-                color: selectedPageValue == SelectedPage.left
-                    ? blackColor
-                    : Colors.white,
+            style: const TextStyle(
+                color: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w500),
           ),

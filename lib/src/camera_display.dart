@@ -111,7 +111,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
     return Center(
       child: Text(
         widget.tapsNames.acceptAllPermissions,
-        style: TextStyle(color: widget.appTheme.focusColor),
+        style: const TextStyle(color: Colors.black),
       ),
     );
   }
