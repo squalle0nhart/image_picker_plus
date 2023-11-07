@@ -120,19 +120,15 @@ class CustomImagePickerState extends State<CustomImagePicker>
     Color deleteColor = redDeleteText.value ? Colors.red : appTheme.focusColor;
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(14.0),
+        padding: const EdgeInsets.all(20.0),
         child: GestureDetector(
           onTap: () async {
             if (isThatDeleteText) {
               setState(() {
-                if (!redDeleteText.value) {
-                  redDeleteText.value = true;
-                } else {
-                  selectedCameraImage.value = null;
-                  clearVideoRecord.value = true;
-                  showDeleteText.value = false;
-                  redDeleteText.value = false;
-                }
+                selectedCameraImage.value = null;
+                clearVideoRecord.value = true;
+                showDeleteText.value = false;
+                redDeleteText.value = false;
               });
             }
           },
@@ -141,13 +137,13 @@ class CustomImagePickerState extends State<CustomImagePicker>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (isThatDeleteText)
-                Icon(Icons.arrow_back_ios_rounded,
-                    color: deleteColor, size: 15),
+                const Icon(Icons.delete_outline,
+                    color: Colors.white, size: 15),
               Text(
                 isThatDeleteText ? tapsNames.deletingText : limitingText,
-                style: TextStyle(
-                    fontSize: 14,
-                    color: deleteColor,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
                     fontWeight: FontWeight.w500),
               ),
             ],
@@ -358,13 +354,13 @@ class CustomImagePickerState extends State<CustomImagePicker>
       },
       child: SizedBox(
         width: widthOfTab,
-        height: 40,
+        height: 50,
         child: Center(
           child: Text(
             tapsNames.galleryText,
             style: const TextStyle(
                 color: Colors.white,
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -380,12 +376,12 @@ class CustomImagePickerState extends State<CustomImagePicker>
               cameraVideoOnlyEnabled ? SelectedPage.left : SelectedPage.center),
       child: SizedBox(
         width: widthOfTab,
-        height: 40,
+        height: 50,
         child: Center(
           child: Text(
             tapsNames.photoText,
             style: const TextStyle(
-                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.w500),
           ),
         ),
       ),

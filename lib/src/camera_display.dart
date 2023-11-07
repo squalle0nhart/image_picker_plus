@@ -180,7 +180,6 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> with WidgetsBi
                   alignment: Alignment.topCenter,
                   child: Container(
                     color: whiteColor,
-                    height: 360,
                     width: double.infinity,
                     child: buildCrop(selectedImage),
                   ),
@@ -265,7 +264,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> with WidgetsBi
       image: selectedImage,
       isThatImage: !isThatVideo,
       key: cropKey,
-      alwaysShowGrid: true,
+      alwaysShowGrid: false,
       paintColor: widget.appTheme.primaryColor,
     );
   }
@@ -286,7 +285,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> with WidgetsBi
           duration: const Duration(seconds: 1),
           switchInCurve: Curves.easeIn,
           child: IconButton(
-            icon: const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 30),
+            icon: const Icon(Icons.check_circle_outline, color: Colors.white, size: 32),
             onPressed: () async {
               if (videoRecordFile != null) {
                 Uint8List byte = await videoRecordFile!.readAsBytes();

@@ -159,7 +159,7 @@ class CustomCropState extends State<CustomCrop>
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.sizeOf(context).width;
     return SizedBox(
       width: width,
       child: ConstrainedBox(

@@ -29,9 +29,9 @@ class CustomExpandIcon extends StatelessWidget {
             child: Transform.rotate(
               angle: 180 * math.pi / 255,
               child: const Icon(
-                Icons.arrow_forward_ios_rounded,
+                Icons.check_circle_outline,
                 color: Colors.white,
-                size: 12,
+                size: 14,
               ),
             ),
           ),
