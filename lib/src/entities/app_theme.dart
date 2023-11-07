@@ -10,7 +10,7 @@ class AppTheme {
   AppTheme({
     this.appBarColor = Colors.white,
     this.primaryColor = Colors.white,
-    this.focusColor = Colors.black,
+    this.focusColor = Colors.white,
     this.shimmerBaseColor = const Color.fromARGB(255, 185, 185, 185),
     this.shimmerHighlightColor = const Color.fromARGB(255, 209, 209, 209),
   });

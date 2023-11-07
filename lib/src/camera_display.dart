@@ -243,14 +243,12 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
   }
 
   AppBar appBar() {
-    Color whiteColor = widget.appTheme.primaryColor;
-    Color blackColor = widget.appTheme.focusColor;
     File? selectedImage = widget.selectedCameraImage.value;
     return AppBar(
       backgroundColor: widget.appTheme.appBarColor,
       elevation: 0,
       leading: IconButton(
-        icon: Icon(Icons.clear_rounded, color: blackColor, size: 30),
+        icon: const Icon(Icons.clear_rounded, color: Colors.white, size: 30),
         onPressed: () {
           Navigator.of(context).maybePop(null);
         },
@@ -261,7 +259,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
           switchInCurve: Curves.easeIn,
           child: IconButton(
             icon: const Icon(Icons.arrow_forward_rounded,
-                color: Colors.blue, size: 30),
+                color: Colors.white, size: 30),
             onPressed: () async {
               if (videoRecordFile != null) {
                 Uint8List byte = await videoRecordFile!.readAsBytes();
@@ -278,13 +276,12 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
                 if (!mounted) return;
                 Navigator.of(context).maybePop(details);
               } else if (selectedImage != null) {
-                File? croppedByte = await cropImage(selectedImage);
-                if (croppedByte != null) {
-                  Uint8List byte = await croppedByte.readAsBytes();
+                if (selectedImage != null) {
+                  Uint8List byte = await selectedImage.readAsBytes();
 
                   SelectedByte selectedByte = SelectedByte(
                     isThatImage: true,
-                    selectedFile: croppedByte,
+                    selectedFile: selectedImage,
                     selectedByte: byte,
                   );
 

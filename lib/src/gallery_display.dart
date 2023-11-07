@@ -199,7 +199,7 @@ class CustomImagePickerState extends State<CustomImagePicker>
 
   DefaultTabController tabController() {
     return DefaultTabController(
-        length: 2, child: Material(color: whiteColor, child: safeArea()));
+        length: 2, child: Material(color: appTheme.appBarColor, child: safeArea()));
   }
 
   SafeArea safeArea() {
@@ -365,7 +365,7 @@ class CustomImagePickerState extends State<CustomImagePicker>
             style: TextStyle(
                 color: selectedPageValue == SelectedPage.left
                     ? blackColor
-                    : Colors.grey,
+                    : Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w500),
           ),
@@ -386,8 +386,8 @@ class CustomImagePickerState extends State<CustomImagePicker>
         child: Center(
           child: Text(
             tapsNames.photoText,
-            style: TextStyle(
-                color: textColor, fontSize: 14, fontWeight: FontWeight.w500),
+            style: const TextStyle(
+                color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ),
       ),

@@ -305,7 +305,7 @@ class _ImagesViewPageState extends State<ImagesViewPage>
 
   AppBar appBar() {
     return AppBar(
-      backgroundColor: widget.appTheme.appBarColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.clear_rounded,
@@ -349,7 +349,7 @@ class _ImagesViewPageState extends State<ImagesViewPage>
       builder: (context, List<int> indexOfSelectedImagesValue, child) =>
           IconButton(
         icon: const Icon(Icons.arrow_forward_rounded,
-            color: Colors.blue, size: 30),
+            color: Colors.white, size: 30),
         onPressed: () async {
           double aspect = expandImage.value ? 6 / 8 : 1.0;
           if (widget.multiSelectionMode.value && widget.multiSelection) {
@@ -494,11 +494,18 @@ class _ImagesViewPageState extends State<ImagesViewPage>
     );
   }
 
-  Container blurContainer() {
-    return Container(
-      width: double.infinity,
-      color: const Color.fromARGB(184, 234, 234, 234),
-      height: double.maxFinite,
+  Stack blurContainer() {
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          color: Colors.black.withOpacity(0.75),
+          height: double.maxFinite,
+        ),
+        const Center(
+          child: Icon(Icons.check, color: Colors.white,),
+        )
+      ],
     );
   }
 
