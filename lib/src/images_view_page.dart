@@ -211,14 +211,17 @@ class _ImagesViewPageState extends State<ImagesViewPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return noImages
-        ? Center(
-            child: Text(
-              widget.tabsTexts.noImagesFounded,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          )
-        : buildGridView();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: noImages
+          ? Center(
+        child: Text(
+          widget.tabsTexts.noImagesFounded,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      )
+          : buildGridView(),
+    );
   }
 
   ValueListenableBuilder<bool> buildGridView() {
@@ -308,8 +311,8 @@ class _ImagesViewPageState extends State<ImagesViewPage>
       backgroundColor: Colors.transparent,
       elevation: 0,
       leading: IconButton(
-        icon: Icon(Icons.clear_rounded,
-            color: widget.appTheme.focusColor, size: 30),
+        icon: const Icon(Icons.clear_rounded,
+            color: Colors.white, size: 30),
         onPressed: () {
           Navigator.of(context).maybePop(null);
         },

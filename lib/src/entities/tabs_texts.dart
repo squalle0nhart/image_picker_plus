@@ -11,9 +11,11 @@ class TabsTexts {
   final String notFoundingCameraText;
   final String noImagesFounded;
   final String acceptAllPermissions;
+  final String settingText;
 
   TabsTexts({
     this.videoText = "VIDEO",
+    this.settingText = 'Setting',
     this.photoText = "PHOTO",
     this.clearImagesText = "Clear selected images",
     this.galleryText = "GALLERY",

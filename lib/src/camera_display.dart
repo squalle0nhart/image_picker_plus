@@ -11,6 +11,7 @@ import 'package:image_picker_plus/src/entities/selected_image_details.dart';
 import 'package:image_picker_plus/src/entities/tabs_texts.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class CustomCameraDisplay extends StatefulWidget {
@@ -43,7 +44,7 @@ class CustomCameraDisplay extends StatefulWidget {
   CustomCameraDisplayState createState() => CustomCameraDisplayState();
 }
 
-class CustomCameraDisplayState extends State<CustomCameraDisplay> {
+class CustomCameraDisplayState extends State<CustomCameraDisplay> with WidgetsBindingObserver {
   ValueNotifier<bool> startVideoCount = ValueNotifier(false);
 
   bool initializeDone = false;
@@ -70,8 +71,20 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
   void initState() {
     videoStatusAnimation = Container();
     _initializeCamera();
+    WidgetsBinding.instance.addObserver(this);
 
     super.initState();
+  }
+
+  // THIS is called whenever life cycle changed
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      final granted = await Permission.camera.isGranted;
+      if (granted) {
+        _initializeCamera();
+      }
+    }
   }
 
   Future<void> _initializeCamera() async {
@@ -103,16 +116,39 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
       color: widget.appTheme.primaryColor,
       child: allPermissionsAccessed
           ? (initializeDone ? buildBody() : loadingProgress())
-          : failedPermissions(),
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                appBar(),
+                Expanded(child: failedPermissions()),
+              ],
+            ),
     );
   }
 
   Widget failedPermissions() {
-    return Center(
-      child: Text(
-        widget.tapsNames.acceptAllPermissions,
-        style: const TextStyle(color: Colors.black),
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: Text(
+              widget.tapsNames.acceptAllPermissions,
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        TextButton.icon(
+            onPressed: () async {
+              await openAppSettings();
+            },
+            icon: const Icon(Icons.settings),
+            label: Text(widget.tapsNames.settingText))
+      ],
     );
   }
 
@@ -209,9 +245,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
       child: IconButton(
         onPressed: () {
           setState(() {
-            currentFlashMode = currentFlashMode == Flash.off
-                ? Flash.auto
-                : (currentFlashMode == Flash.auto ? Flash.on : Flash.off);
+            currentFlashMode = currentFlashMode == Flash.off ? Flash.auto : (currentFlashMode == Flash.auto ? Flash.on : Flash.off);
           });
           currentFlashMode == Flash.on
               ? controller.setFlashMode(FlashMode.torch)
@@ -219,13 +253,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
                   ? controller.setFlashMode(FlashMode.off)
                   : controller.setFlashMode(FlashMode.auto);
         },
-        icon: Icon(
-            currentFlashMode == Flash.on
-                ? Icons.flash_on_rounded
-                : (currentFlashMode == Flash.auto
-                    ? Icons.flash_auto_rounded
-                    : Icons.flash_off_rounded),
-            color: Colors.white),
+        icon: Icon(currentFlashMode == Flash.on ? Icons.flash_on_rounded : (currentFlashMode == Flash.auto ? Icons.flash_auto_rounded : Icons.flash_off_rounded), color: Colors.white),
       ),
     );
   }
@@ -258,8 +286,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
           duration: const Duration(seconds: 1),
           switchInCurve: Curves.easeIn,
           child: IconButton(
-            icon: const Icon(Icons.arrow_forward_rounded,
-                color: Colors.white, size: 30),
+            icon: const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 30),
             onPressed: () async {
               if (videoRecordFile != null) {
                 Uint8List byte = await videoRecordFile!.readAsBytes();
@@ -302,21 +329,15 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
   }
 
   Future<File?> cropImage(File imageFile) async {
-       final crop = await ImageCropper.platform.cropImage(
+    final crop = await ImageCropper.platform.cropImage(
       sourcePath: imageFile.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
-      ],
+      aspectRatioPresets: [CropAspectRatioPreset.square, CropAspectRatioPreset.ratio3x2, CropAspectRatioPreset.original, CropAspectRatioPreset.ratio4x3, CropAspectRatioPreset.ratio16x9],
     );
 
     if (crop == null) {
       return null;
     }
- return File(crop.path);
+    return File(crop.path);
   }
 
   GestureDetector cameraButton(BuildContext context) {
