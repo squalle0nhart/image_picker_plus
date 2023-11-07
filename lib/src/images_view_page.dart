@@ -305,7 +305,7 @@ class _ImagesViewPageState extends State<ImagesViewPage>
 
   AppBar appBar() {
     return AppBar(
-      backgroundColor: widget.appTheme.primaryColor,
+      backgroundColor: widget.appTheme.appBarColor,
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.clear_rounded,
@@ -320,7 +320,7 @@ class _ImagesViewPageState extends State<ImagesViewPage>
   Widget normalAppBar() {
     double width = MediaQuery.of(context).size.width;
     return Container(
-      color: widget.whiteColor,
+      color: widget.appTheme.appBarColor,
       height: 56,
       width: width,
       child: Row(

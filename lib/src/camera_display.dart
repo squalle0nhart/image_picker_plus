@@ -247,7 +247,7 @@ class CustomCameraDisplayState extends State<CustomCameraDisplay> {
     Color blackColor = widget.appTheme.focusColor;
     File? selectedImage = widget.selectedCameraImage.value;
     return AppBar(
-      backgroundColor: whiteColor,
+      backgroundColor: widget.appTheme.appBarColor,
       elevation: 0,
       leading: IconButton(
         icon: Icon(Icons.clear_rounded, color: blackColor, size: 30),
